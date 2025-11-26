@@ -8,26 +8,39 @@ class Particula {
     this.tVida = int(random(100, 500));
     this.tVidaInicial = this.tVida;
     this.estaMuerta = false;
+
     this.diam = random(5, 15);
-    this.color = random(0, 200, 100);
+
+    this.colorInicial = color(200, 200, 0);
+    this.colorFinal = color(200, 0, 0);
   }
+
   update() {
     if (!this.estaMuerta) {
       this.pos.add(this.vel);
-      this.vel.rotate(random(-0.1, 0.2));
+      this.vel.rotate(-0.1);
       this.tVida -= 1;
     }
+
     if (this.tVida <= 0 && !this.estaMuerta) {
       this.estaMuerta = true;
     }
   }
+
   display() {
     noStroke();
 
-    this.colorFinal = map(this.tVida, this.tVidaInicial, 0, this.color, 0);
+    //cambio de color
+    let vidaNorm = map(this.tVida, 0, this.tVidaInicial, 1, 0);
+    let c = lerpColor(this.colorInicial, this.colorFinal, vidaNorm);
 
-    this.diamFinal = map(this.tVida, this.tVidaInicial, 0, this.diam, 0);
+    this.diamFinal = map(this.tVida, 0, this.tVidaInicial, 0, this.diam);
 
+    // brillo extra
+    fill(red(c), green(c), blue(c), 40);
+    circle(this.pos.x, this.pos.y, this.diamFinal * 2.5);
+
+    fill(c);
     circle(this.pos.x, this.pos.y, this.diamFinal);
   }
 }

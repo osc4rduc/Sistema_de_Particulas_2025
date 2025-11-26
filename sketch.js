@@ -10,7 +10,7 @@ function draw() {
 
   for (let i = 0; i < sp.length - 1; i++) {
     noFill();
-    stroke(0, random(10, 200), random(10, 200));
+    stroke(0, random(0, 200), random(0, 200));
     line(sp[i].pos.x, sp[i].pos.y, sp[i + 1].pos.x, sp[i + 1].pos.y);
   }
   for (const [index, particula] of sp.entries()) {
